@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Help Children - Free HTML CSS Website Template for Non-profit Organizations</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="TemplatesJungle">
+    <meta name="keywords" content="Free HTML CSS Website Template for Non-profit Organizations">
+    <meta name="description" content="Free HTML CSS Website Template for Non-profit Organizations">
+
+    <link rel="stylesheet" type="text/css" href="css/vendor.css">
+    <link href="plugins/bootstrap-5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <link rel="stylesheet" href="vendor.css">
+
+
+	<script src="js/modernizr.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .donation-form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .amount-range {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .amount-value {
+            font-weight: bold;
+        }
+
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        
+    </style>
+</head>
+<body>
+    <video src="images\lv_0_20231104005444.mp4" autoplay muted loop></video>
+    <section class="donation-form">
+        <h2>Make a Donation</h2>
+        <form id="donationForm" action="donation_confirmation.html" method="post">
+            <div class="form-group">
+                <label for="amount">Amount (USD)</label>
+                <input type="range" id="amount" name="amount" min="0" max="1000" step="1"><br>
+                <span id="amountValue">$0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="card">Card Number</label>
+                <input type="text" id="card" name="card" pattern="[0-9]{13-16}" required oninput="formatCardNumber(event)"><br>
+            </div>
+
+            <div class="form-group">
+                <label for="holder">Cardholder Name</label>
+                <input type="text" id="holder" name="holder" style="text-transform: uppercase;" required><br>
+            </div>            
+
+            <div class="form-group">
+                <label for="expiry">Expiry Date</label>
+                <div class="expiry-container">
+                    <select id="expiryMonth" name="expiryMonth" required>
+                        <option value="" disabled selected>Select Month</option>
+                    </select>
+
+                    <select id="expiryYear" name="expiryYear" required>
+                        <option value="" disabled selected>Select Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" pattern="[0-9]{3}" maxlength="3" required><br>
+            </div>            
+
+            <input type="submit" value="Donate">
+        </form>
+    </section>
+
+    <script>
+        const amountSlider = document.getElementById('amount');
+        const amountValue = document.getElementById('amountValue');
+        
+        amountSlider.addEventListener('input', function() {
+            amountValue.textContent = '$' + this.value;
+        });
+
+        const expiryMonthSelect = document.getElementById('expiryMonth');
+        const expiryYearSelect = document.getElementById('expiryYear');
+
+        for (let i = 1; i <= 12; i++) {
+            const month = i < 10 ? '0' + i : i;
+            const option = document.createElement('option');
+            option.value = month;
+            option.textContent = month;
+            expiryMonthSelect.appendChild(option);
+        }
+
+        for (let i = 2023; i <= 2030; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            expiryYearSelect.appendChild(option);
+        }
+
+        function formatCardNumber(event) {
+                const input = event.target;
+                let value = input.value.replace(/\s/g, '');
+
+                value = value.slice(0, 16);
+
+                if (value.length > 4) {
+                    value = value.replace(/(.{4})/g, '$1 ');
+                }
+
+                input.value = value;
+            }
+
+    </script>
+</body>
+</html>

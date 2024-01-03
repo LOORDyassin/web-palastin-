@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Donation Form</title>
+</head>
+<body>
+
+    <form id="donationForm" action="donation_process.php" method="post">
+        <div class="form-group">
+            <label for="amount">Monthly Amount (USD)</label>
+            <input type="range" id="amount" name="amount" min="10" max="1000" step="10"><br>
+            <span id="amountValue">$0</span>
+        </div>
+    
+        <div class="form-group">
+            <label for="months">Number of Months</label>
+            <input type="range" id="months" name="months" min="1" max="12" step="1"><br>
+            <span id="monthsValue">1 month</span>
+        </div>
+    
+        <div class="form-group">
+            <label for="card">Card Number</label>
+            <input type="text" id="card" name="card" pattern="[0-9]{13,16}" required oninput="formatCardNumber(event)"><br>
+        </div>
+    
+        <div class="form-group">
+            <label for="holder">Cardholder Name</label>
+            <input type="text" id="holder" name="holder" style="text-transform: uppercase;" required><br>
+        </div>
+    
+        <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <div class="expiry-container">
+                <select id="expiryMonth" name="expiryMonth" required>
+                    <option value="" disabled selected>Select Month</option>
+                </select>
+    
+                <select id="expiryYear" name="expiryYear" required>
+                    <option value="" disabled selected>Select Year</option>
+                </select>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" pattern="[0-9]{3}" maxlength="3" required><br>
+        </div>
+    
+        <input type="submit" value="Donate">
+    </form>    
+
+</body>
+</html>
